@@ -1,6 +1,6 @@
 {
-  "name": "kolmakov-ilya-nodejs-otus",
-  "version": "1.0.0",
+  "name": "recursive-data-tree",
+  "version": "1.0.1",
   "description": "Otus course Node.js",
   "main": "index.js",
   "scripts": {
