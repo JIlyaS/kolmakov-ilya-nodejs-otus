@@ -1,0 +1,25 @@
+{
+  "name": "recursive-data-tree",
+  "version": "1.0.1",
+  "description": "Otus course Node.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JIlyaS/kolmakov-ilya-nodejs-otus.git"
+  },
+  "keywords": [
+    "node.js",
+    "express",
+    "nest.js"
+  ],
+  "author": "Ilya Kolmakov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JIlyaS/kolmakov-ilya-nodejs-otus/issues"
+  },
+  "homepage": "https://github.com/JIlyaS/kolmakov-ilya-nodejs-otus#readme"
+}
