@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-3",
+  "version": "1.0.1",
+  "description": "CLI application for tree directories",
+  "main": "bin/index.js",
+  "preferGlobal": true,
+  "bin": {
+    "tree": "./bin/index.js"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "scripts": {
+    "start": "node ./bin/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ilya Kolmakov",
+  "license": "ISC"
+}
