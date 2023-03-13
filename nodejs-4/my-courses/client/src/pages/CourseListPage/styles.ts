@@ -6,6 +6,7 @@ export const SCourseList = styled.div`
   align-items: center;
   flex-direction: column;
   flex-direction: column;
+  gap: 25px;
 
   padding: 0 15px;
 `;

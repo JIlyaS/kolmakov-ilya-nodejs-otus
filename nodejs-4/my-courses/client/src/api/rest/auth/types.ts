@@ -3,6 +3,7 @@ export type Registration = {
   password: string;
   username: string;
   email?: string;
+  role: string;
 };
 
 export type RegistrationRequest = {
@@ -10,6 +11,7 @@ export type RegistrationRequest = {
   password: string;
   username: string;
   email?: string;
+  role: string;
 };
 
 export type RegistrationDTO = {
@@ -26,4 +28,7 @@ export type Login = {
   password: string;
 };
 
-export type LoginDTO = { token: string };
+export type LoginDTO = { 
+  token: string; 
+  userId: string; 
+};

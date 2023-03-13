@@ -17,7 +17,7 @@ app.use(
   })
 );
 app.use(express.static(path.join(__dirname, "static")));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/src/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/v1", mainRouter);
 

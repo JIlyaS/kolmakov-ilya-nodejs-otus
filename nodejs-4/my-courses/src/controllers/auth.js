@@ -5,9 +5,6 @@ const jwt = require("jsonwebtoken");
 const { secret } = require("../config");
 
 const { User, Role } = require("../models");
-// const { validationResult } = require("express-validator");
-
-// const { Course, Lesson } = require("../models");
 
 const generateAccessToken = (id, roles) => {
   const payload = {
@@ -27,7 +24,7 @@ module.exports.registration = async (req, res, next) => {
         .status(400)
         .json({ message: "Ошибка при регистрации", errors });
     }
-    const { login, password, username, email } = req.body;
+    const { login, password, username, email, role } = req.body;
 
     const candidate = await User.findOne({ login });
     if (candidate) {
@@ -36,7 +33,7 @@ module.exports.registration = async (req, res, next) => {
         .json({ message: "Пользователь с таким именем уже существует" });
     }
     const hashPassword = bcrypt.hashSync(password, 7);
-    const userRole = await Role.findOne({ value: "USER" });
+    const userRole = await Role.findOne({ value: role ?? "USER" });
     const user = new User({
       login,
       password: hashPassword,
@@ -69,29 +66,9 @@ module.exports.login = async (req, res, next) => {
         .json({ message: `Введён неверный логин или пароль` });
     }
     const token = generateAccessToken(user._id, user.roles);
-    console.log("token", token);
-    return res.json({ token });
+    return res.json({ token, userId: user._id });
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: "Ошибка авторизации" });
   }
-  // try {
-  //   const errors = validationResult(req);
-  //   if (!errors.isEmpty()) {
-  //     return res.status(400).json({ errors: errors.array() });
-  //   }
-  //   const course = new Course(req.body);
-  //   course.save((err) => {
-  //     if (err) {
-  //       if (err.name === "ValiadtionError") {
-  //         return res.status(400).send({ error: "Validation error" });
-  //       }
-  //       console.log(err);
-  //       return res.status(500).send({ error: "Server error" });
-  //     }
-  //     res.status(201).send(course);
-  //   });
-  // } catch (err) {
-  //   console.error(err);
-  // }
 };

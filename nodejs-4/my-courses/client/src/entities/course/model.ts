@@ -7,7 +7,7 @@ import {
   merge,
 } from "effector";
 import { createGate } from "effector-react";
-import { getCourses, createCourse } from "../../api/rest/courses";
+import { getCourses, createCourse, getCourse as getCourseApi, deleteCourse as deleteCourseApi } from "../../api/rest/courses";
 import { Course } from "../../api/rest/courses/types";
 
 // import format from "date-fns/format";
@@ -27,15 +27,21 @@ import { Course } from "../../api/rest/courses/types";
 // } from "./types";
 
 const CourseListPageGate = createGate("CourseListPage");
+const CoursePageGate = createGate<string>("CoursePage");
 
 const $courseList = createStore<Course[]>([]);
+const $currentCourse = createStore<Course | null>(null);
 
 const getCourseList = createEvent();
 const addCourse = createEvent<Course>();
+const getCourse = createEvent<string>();
+const deleteCourse = createEvent<string | undefined>();
 
 const getCourseListFx = createEffect(() => getCourses());
 // const createCourseFx = createEffect(() => createCourse());
 const addCourseFx = createEffect((data: Course) => createCourse(data));
+const getCourseFx = createEffect((id: string) => getCourseApi(id));
+const deleteCourseFx = createEffect((id: string | undefined) => deleteCourseApi(id));
 
 sample({
   clock: CourseListPageGate.open,
@@ -54,6 +60,25 @@ sample({
 
 $courseList.on(getCourseListFx.doneData, (_, payload: any) => {
   return payload;
+});
+
+sample({
+  clock: CoursePageGate.open,
+  target: getCourse
+});
+
+sample({
+  clock: getCourse,
+  target: getCourseFx,
+});
+
+$currentCourse.on(getCourseFx.doneData, (_, payload: any) => {
+  return payload;
+});
+
+sample({
+  clock: deleteCourse,
+  target: deleteCourseFx
 });
 
 // sample({
@@ -225,4 +250,13 @@ $courseList.on(getCourseListFx.doneData, (_, payload: any) => {
 //   updateStatusTask,
 // };
 
-export { CourseListPageGate, $courseList, addCourse, addCourseFx };
+export { 
+  CourseListPageGate,
+  CoursePageGate,
+  $courseList, 
+  addCourse, 
+  addCourseFx,
+  $currentCourse,
+  deleteCourse,
+  deleteCourseFx
+};

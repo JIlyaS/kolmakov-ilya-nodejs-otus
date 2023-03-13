@@ -1,1 +1,1 @@
-export { getCourses, createCourse } from "./courses";
+export { getCourses, getCourse, createCourse, deleteCourse } from "./courses";

@@ -1,32 +1,9 @@
 const { validationResult } = require("express-validator");
 
-const authMiddleware = require("../middlewares/authMiddleware");
-
-const { Course, Lesson, PreviewImgCourse } = require("../models");
-
-// module.exports.getCourses = async (req, res, next) => {
-//   try {
-//     const news = await News.find({}).populate("user");
-//     const updatedNews = news.map((item) => ({
-//       id: String(item._id),
-//       text: item.text,
-//       title: item.title,
-//       user: item.user,
-//     }));
-//     return res.json(updatedNews);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+const { Course, PreviewImgCourse } = require("../models");
 
 module.exports.getCourses = async (req, res, next) => {
   try {
-    // Course.find((err, courses) => {
-    //   if (err) return res.status(500).send({ error: "Server error" });
-
-    //   res.json(courses);
-    // });
-
     const courses = await Course.find({});
 
     res.status(200).json(courses);
@@ -42,10 +19,15 @@ module.exports.createCourse = async (req, res, next) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const course = new Course(req.body);
-    // const preview
+    const preview = await PreviewImgCourse.findOne();
 
-    course.save((err) => {
+    let courseData = req.body;
+    if (preview) {
+      courseData = {...courseData, previewImg: { fileName: preview.fileName, filePath: preview.filePath, fileType: preview.fileType, fileSize: preview.fileSize} };
+    }
+    const course = new Course(courseData);
+
+    course.save(async (err) => {
       if (err) {
         if (err.name === "ValiadtionError") {
           return res.status(400).send({ error: "Validation error" });
@@ -53,6 +35,8 @@ module.exports.createCourse = async (req, res, next) => {
         console.log(err);
         return res.status(500).send({ error: "Server error" });
       }
+
+      await PreviewImgCourse.remove({});
 
       res.status(201).send(course);
     });
@@ -105,9 +89,9 @@ module.exports.uploadPreview = async (req, res, next) => {
       fileName: req.file.originalname,
       filePath: req.file.path,
       fileType: req.file.mimetype,
-      fileSize: fileSizeFormatter(req.file.size, 2), // req.file.size
+      fileSize: fileSizeFormatter(req.file.size, 2),
     });
-    await PreviewImgCourse.collection.drop();
+    await PreviewImgCourse.remove({});
     await file.save();
     res.status(201).json({ message: "Файл загружен успешно" });
   } catch (err) {

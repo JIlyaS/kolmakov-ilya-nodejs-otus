@@ -7,8 +7,8 @@ const diskStorage = multer.diskStorage({
     const extensions = path.extname(file.originalname);
 
     const uploadPath = imageExtensions.includes(extensions)
-      ? "uploads/images"
-      : "uploads";
+      ? "src/uploads/images"
+      : "src/uploads";
 
     cb(null, uploadPath);
   },

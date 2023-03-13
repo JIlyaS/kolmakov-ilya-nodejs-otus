@@ -32,9 +32,11 @@ router.get("/:id", ctrlCourse.getCourse);
 router.post("/", [courseSchemaPost, authMiddleware], ctrlCourse.createCourse);
 router.patch("/:id", authMiddleware, ctrlCourse.updateCourse);
 router.delete("/:id", authMiddleware, ctrlCourse.deleteCourse);
+
+// TODO: Не работает authMiddleware!
 router.post(
   "/preview/upload",
-  [upload.single("file"), authMiddleware],
+  upload.single("file"), 
   ctrlCourse.uploadPreview
 );
 

@@ -1,11 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Button,
-  Form,
-  Input,
-  Upload,
-} from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 
 import { auth } from '../../entities';
 
@@ -38,13 +33,22 @@ const RegistrationPage: React.FC = () => {
             <Input />
           </Form.Item>
           <Form.Item label="Пароль" name="password" rules={[{ required: true }]}>
-            <Input />
+            <Input type="password" />
           </Form.Item>
           <Form.Item label="ФИО" name="username" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
           <Form.Item label="Email" name="email">
             <Input />
+          </Form.Item>
+          <Form.Item label="Роль" name="role">
+            <Select
+              defaultValue="Пользователь"
+              options={[
+                { label: 'Пользователь', value: 'USER' },
+                { label: 'Администратор', value: 'ADMIN' },
+              ]}
+            />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
