@@ -15,22 +15,21 @@ module.exports = {
         sourceType: 'module',
     },
     rules: {
-        'linebreak-style': 'off', // Неправильно работает в Windows.
+        'linebreak-style': 'off',
 
-        'arrow-parens': 'off', // Несовместимо с prettier
-        'object-curly-newline': 'off', // Несовместимо с prettier
-        'no-mixed-operators': 'off', // Несовместимо с prettier
-        'arrow-body-style': 'off', // Это - не наш стиль?
-        'function-paren-newline': 'off', // Несовместимо с prettier
+        'arrow-parens': 'off',
+        'object-curly-newline': 'off',
+        'no-mixed-operators': 'off',
+        'arrow-body-style': 'off',
+        'function-paren-newline': 'off',
         'no-plusplus': 'off',
-        'space-before-function-paren': 0, // Несовместимо с prettier
+        'space-before-function-paren': 0,
 
-        'max-len': ['error', 100, 2, { ignoreUrls: true, }], // airbnb позволяет некоторые пограничные случаи
-        // 'no-console': 'error', // airbnb использует предупреждение
-        'no-alert': 'error', // airbnb использует предупреждение
+        'max-len': ['error', 100, 2, { ignoreUrls: true, }],
+        'no-alert': 'error',
 
-        'no-param-reassign': 'off', // Это - не наш стиль?
-        "radix": "off", // parseInt, parseFloat и radix выключены. Мне это не нравится.
+        'no-param-reassign': 'off',
+        "radix": "off",
 
         'prefer-destructuring': 'off',
 
