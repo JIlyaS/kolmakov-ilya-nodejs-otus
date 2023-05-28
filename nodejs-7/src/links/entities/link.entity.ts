@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { UserEntity } from '../../users/entities/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 
 @Entity('links')
-export default class Link {
+export default class LinkEntity {
     @PrimaryGeneratedColumn('increment') // uuid
     id: number;
 
@@ -10,4 +11,7 @@ export default class Link {
 
     @Column({ type: 'character varying', length: 100, nullable: true })
     shortName?: string;
+
+    @ManyToOne(() => UserEntity, user => user.links)
+    user?: UserEntity;
 }
